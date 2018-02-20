@@ -1,6 +1,6 @@
 # Config for mining rig
 
-# Beginning with the basics
+## Beginning with the basics
 We are configuring a rig running Ubuntu 16.04 LTS. The steps herein should be supported through April 2021 for a 64-bit architecture.
 
 ## Port forwarding via SSH (SSH tunneling)
@@ -31,6 +31,5 @@ dns-nameservers 8.8.8.8 8.8.4.4
 `sudo /etc/init.d/networking restart`
 If there are no errors, the primary network interface should be configured with the static IP address.
 
-Credit to Michael McKinnon. :)
 #### Router config
 We are using instructions from the [following resource](https://portforward.com). Specifically, since the router we are using is an Apple Time Capsule, we can jump [directly to the apple page](https://portforward.com/apple/).
