@@ -22,6 +22,7 @@ iface ens160 inet static
 	gateway <insert gateway>
 ```
 To find `address` and `gateway`, we can run `ip route show`. (`ifconfig` for IP).
+
 3. Add `dns-nameservers` below that static IP. To do this, add the following:
 ```
 # Signal google's public DNS as dns-nameservers
