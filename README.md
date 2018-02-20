@@ -12,8 +12,8 @@ By default, we're using DHCP (Dynamic Host Configuration Protocol), but we want 
 
 The steps we followed are laid out in [this tutorial](https://michael.mckinnon.id.au/2016/05/05/configuring-ubuntu-16-04-static-ip-address/), however for posterity (and dev editor preferences), we will duplicate the exact steps we took in order to set up our machine.
 
-**1.** Find "# The primary network interface" and comment out the line `iface ens160 inet dhcp`.
-**2.** Add below the commented line:
+1. Find "# The primary network interface" and comment out the line `iface ens160 inet dhcp`.
+2. Add below the commented line:
 ```
 # Declare static IP address
 iface ens160 inet static
@@ -22,12 +22,12 @@ iface ens160 inet static
 	gateway <insert gateway>
 ```
 To find `address` and `gateway`, we can run `ip route show`. (`ifconfig` for IP).
-**3.** Add `dns-nameservers` below that static IP. To do this, add the following:
+3. Add `dns-nameservers` below that static IP. To do this, add the following:
 ```
 # Signal google's public DNS as dns-nameservers
 dns-nameservers 8.8.8.8 8.8.4.4
 ```
-**4.** Make sure everything is correct, save the file and restart the networking service. You can do this by running:
+4. Make sure everything is correct, save the file and restart the networking service. You can do this by running:
 
 `sudo /etc/init.d/networking restart`
 
