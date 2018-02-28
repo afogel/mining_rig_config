@@ -1,15 +1,17 @@
-# Config for mining rig
+# Remotely configging a mining rig
+
+This project is a tutorial for setting up an Ethereum mining rig from a remote location. While there exist many tutorials online, the hardware we used appears to be more obscure, so...enjoy!
+Hopefully this is helpful :)
 
 ## Beginning with the basics
 We are configuring a rig running Ubuntu 16.04 LTS. The steps herein should be supported through April 2021 for a 64-bit architecture.
 
 ## Establishing SSH tunneling
 In order to connect to the mining rig using a remote machine, we need to:
-[] Set up a static IP on our local machine
-[] Configure the Router for Port Forwarding
-[] 
 
-We have roughly adapted a [tech otaku tutorial](https://www.tech-otaku.com/networking/establishing-ssh-tunnel-remotely-access-mac-afp-vnc/) for this work in order to reflect our quirks with router config on an Apple airport router.
+[X] Set up a static IP on our local machine
+
+[X] Configure the Router for Port Forwarding
 
 
 ### Setting up port forwarding for the router
@@ -39,5 +41,19 @@ iface lo inet loopback
 ``` 
 
 
-#### Router config
-We are using instructions from the [following resource](https://portforward.com). Specifically, since the router we are using is an Apple Time Capsule, we can jump [directly to the apple page](https://portforward.com/apple/).
+#### Setting up port forwarding on the router
+
+The router we have chosen is an Apple Airport Extreme (actually, it's a Time Capsule, but who's really keeping score :P). In order to configure our router, we are running a version of the Airport Utility 6.X.
+
+In order to allow traffic from outside of the network within, we had to modify the approach contained within [this tutorial](https://www.rainmachine.com/support/portforwarding/Port-Forwarding-Apple-AirPortExtreme-Router-for-HTTPS.pdf) to incorporate information from [this informative thread](https://lime-technology.com/forums/topic/31154-how-to-request-ssh-from-outside-home-network/).
+
+1. First, we have to reserve the IP address we set for our rig. We can do that by opening the AirPort Utility, then navigating through the following:
+*AirPort Utility​> Select the base station​> Edit​> Network​* tab
+	1. Verify that the Router Mode:​DHCP and NAT
+	2. Click the Add *+* ​button under DHCP Reservations:
+	3. Description: <enter the desired description of the host device> eg: *Mining Rig*
+	4. Reserve address by: *MAC address*
+	5. MAC Address: <Mining Rig's MAC Address> eg: *64:70:a6:34:65:12*
+	6. IPv4 Address: <enter the desired Private (LAN­side) IP address that we want to reserve from
+the DHCP pool of addresses> eg: *192.168.1.2*
+	7. Click Save ​button
