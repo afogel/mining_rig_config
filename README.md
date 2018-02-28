@@ -1,4 +1,6 @@
 # Remotely configging a mining rig
+## Table of Contents
+- [Beginning with the basics](#beginning-with-the-basics)
 
 This project is a tutorial for setting up an Ethereum mining rig from a remote location. While there exist many tutorials online, the hardware we used appears to be more obscure, so...enjoy!
 Hopefully this is helpful.
@@ -28,8 +30,7 @@ In order to connect to the mining rig using a remote machine, we need to:
 - [X] Configure the Router for Port Forwarding
 
 
-### Setting up port forwarding for the router
-#### Static IP
+### Static IP
 Out of the box, Ubuntu use DHCP (Dynamic Host Configuration Protocol) to set our IPs, but we want to change that to a static IP. The rationale behind this change is that by using a static IP, we will always reliably know the IP address of our rig. Otherwise, it is conceivable that the IP address will be dynamically reassigned underfoot, making ssh tunneling difficult if not impossible.
 
 As of February 22, 2018, the out of the box configuration for Ubuntu 16.04 LTS Desktop is configured differently than many of the tutorials we encountered\*. As a result, we opted to set the IP to be a static one using the "Network Connections" GUI tool in Ubuntu. 
@@ -54,8 +55,7 @@ auto lo
 iface lo inet loopback
 ``` 
 
-
-#### Setting up port forwarding on the router
+### Setting up port forwarding on the router
 
 The router we have chosen is an Apple Airport Extreme (actually, it's a Time Capsule, but who's really keeping score :P). In order to configure our router, we are running a version of the Airport Utility 6.X.
 
@@ -83,5 +83,6 @@ the DHCP pool of addresses> eg: *192.168.1.2*
 3. Click update. You'll temporarily lose access to the internet as the router is reconfigured. Once internet access is restored, you should now be able to SSH into the machine remotely!
 
 To access the mining rig from your local machine, run `ssh -p <PORT NUMBER, e.g. 21000> <username>@<router public IP address>`.
-	
+
 If you are unsure of the router's public IP address, you should run `curl ipinfo.io/ip; echo` from a CLI on a computer within the network.
+
