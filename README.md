@@ -14,7 +14,9 @@ The steps we will follow to set this machine up is:
 ## Beginning with the basics
 ### Hardware inventory
 Apple Airport Extreme
+
 NVIDIA 1060
+
 NVIDIA 1070
 
 ### Software Inventory
@@ -81,4 +83,5 @@ the DHCP pool of addresses> eg: *192.168.1.2*
 3. Click update. You'll temporarily lose access to the internet as the router is reconfigured. Once internet access is restored, you should now be able to SSH into the machine remotely!
 
 To access the mining rig from your local machine, run `ssh -p <PORT NUMBER, e.g. 21000> <username>@<router public IP address>`.
+	
 If you are unsure of the router's public IP address, you should run `curl ipinfo.io/ip; echo` from a CLI on a computer within the network.
