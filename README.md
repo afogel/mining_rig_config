@@ -7,10 +7,14 @@
 	- [Static IP](#static-ip)
 	- [Setting up port forwarding on the router](#setting-up-port-forwarding-on-the-router)
 
+### Purpose
+
 This project is a tutorial for setting up an Ethereum mining rig from a remote location. While there exist many tutorials online, the hardware we used appears to be more obscure, so...enjoy!
 Hopefully this is helpful.
 
 It may go without saying, but this is a two man project that requires heavy involvement from the person who has access to the physical machine at the onset. Once the SSH tunneling is set up, the rest of the work can be done remotely.
+
+### Intended Roadmap
 
 The steps we will follow to set this machine up is:
 - [X] Set up SSH tunneling into our machine
@@ -62,7 +66,7 @@ auto lo
 iface lo inet loopback
 ``` 
 
-[Table of contents](#table-of-contents) | [Top of Section](#establishing-ssh-tunneling)
+[[Table of contents](#table-of-contents)] | [[Top of Section](#establishing-ssh-tunneling)]
 
 ### Setting up port forwarding on the router
 
@@ -95,4 +99,4 @@ To access the mining rig from your local machine, run `ssh -p <PORT NUMBER, e.g.
 
 If you are unsure of the router's public IP address, you should run `curl ipinfo.io/ip; echo` from a CLI on a computer within the network.
 
-[Table of contents](#table-of-contents) | [Top of Section](#establishing-ssh-tunneling)
+[[Table of contents](#table-of-contents)] | [[Top of Section](#establishing-ssh-tunneling)]
