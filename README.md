@@ -29,6 +29,8 @@ NVIDIA 1070
 ### Software Inventory
 We are configuring a rig running Ubuntu 16.04 LTS. The steps herein should be supported through April 2021 for a 64-bit architecture.
 
+[Table of contents](#table-of-contents) | [Top of Section](#beginning-with-the-basics)
+
 ## Establishing SSH tunneling
 In order to connect to the mining rig using a remote machine, we need to:
 - [X] Set up a static IP on our local machine
@@ -59,6 +61,8 @@ If there are no errors, the primary network interface should be configured with 
 auto lo
 iface lo inet loopback
 ``` 
+
+[Table of contents](#table-of-contents) | [Top of Section](#establishing-ssh-tunneling)
 
 ### Setting up port forwarding on the router
 
@@ -91,3 +95,4 @@ To access the mining rig from your local machine, run `ssh -p <PORT NUMBER, e.g.
 
 If you are unsure of the router's public IP address, you should run `curl ipinfo.io/ip; echo` from a CLI on a computer within the network.
 
+[Table of contents](#table-of-contents) | [Top of Section](#establishing-ssh-tunneling)
