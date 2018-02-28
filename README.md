@@ -1,6 +1,11 @@
 # Remotely configging a mining rig
 ## Table of Contents
 - [Beginning with the basics](#beginning-with-the-basics)
+	- [Hardware inventory](#hardware-inventory)
+	- [Software inventory](#software-inventory)
+- [Establishing SSH tunneling](#establishing-ssh-tunneling)
+	- [Static IP](#static-ip)
+	- [Setting up port forwarding on the router](#setting-up-port-forwarding-on-the-router)
 
 This project is a tutorial for setting up an Ethereum mining rig from a remote location. While there exist many tutorials online, the hardware we used appears to be more obscure, so...enjoy!
 Hopefully this is helpful.
