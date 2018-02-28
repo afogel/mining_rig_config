@@ -1,17 +1,29 @@
 # Remotely configging a mining rig
 
 This project is a tutorial for setting up an Ethereum mining rig from a remote location. While there exist many tutorials online, the hardware we used appears to be more obscure, so...enjoy!
-Hopefully this is helpful :)
+Hopefully this is helpful.
+
+It may go without saying, but this is a two man project that requires heavy involvement from the person who has access to the physical machine at the onset. Once the SSH tunneling is set up, the rest of the work can be done remotely.
+
+The steps we will follow to set this machine up is:
+- [X] Set up SSH tunneling into our machine
+- [X] Configure our local ssh so we don't need to type in passwords when using SSH
+- [] Set up VNC through the SSH tunnel in order to access a GUI (can be useful)
+- [] Install drivers (CUDA) so that our NVIDIA GPU work can be parallelized
 
 ## Beginning with the basics
+### Hardware inventory
+Apple Airport Extreme
+NVIDIA 1060
+NVIDIA 1070
+
+### Software Inventory
 We are configuring a rig running Ubuntu 16.04 LTS. The steps herein should be supported through April 2021 for a 64-bit architecture.
 
 ## Establishing SSH tunneling
 In order to connect to the mining rig using a remote machine, we need to:
-
-[X] Set up a static IP on our local machine
-
-[X] Configure the Router for Port Forwarding
+- [X] Set up a static IP on our local machine
+- [X] Configure the Router for Port Forwarding
 
 
 ### Setting up port forwarding for the router
@@ -49,11 +61,24 @@ In order to allow traffic from outside of the network within, we had to modify t
 
 1. First, we have to reserve the IP address we set for our rig. We can do that by opening the AirPort Utility, then navigating through the following:
 *AirPort Utility​> Select the base station​> Edit​> Network​* tab
-	1. Verify that the Router Mode:​DHCP and NAT
-	2. Click the Add *+* ​button under DHCP Reservations:
+	1. Verify the Router Mode is "​DHCP and NAT"
+	2. Click the Add *+* ​button under DHCP Reservations
 	3. Description: <enter the desired description of the host device> eg: *Mining Rig*
 	4. Reserve address by: *MAC address*
-	5. MAC Address: <Mining Rig's MAC Address> eg: *64:70:a6:34:65:12*
+	5. MAC Address: <Mining Rig's MAC Address> eg: *64:70:a6:34:65:12*. This can be found by running `ifconfig | grep HWaddr` on the mining rig's CLI.
 	6. IPv4 Address: <enter the desired Private (LAN­side) IP address that we want to reserve from
 the DHCP pool of addresses> eg: *192.168.1.2*
 	7. Click Save ​button
+2. Second, we need to configure the port forwarding for our reserved IP address. This work will also be on the same *Network* tab in the Airport Utility where just reserved the private IP address.
+	1. Click the Add *+* ​button under Port Settings
+	2. Description: <Remote Login - SSH>
+	3. Public UDP Port(s): <leave blank>
+	4. Public TCP Port(s): <this should auto-populate with the value of 22>. For security's sake, it is important to change this to an uncommon and [unreserved port number](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_number) (e.g. 21011). This will act as a first deterrant to prevent people from infilitrating your system using SSH.
+	5. Private IP Address: <enter the private IP address we reserved in the previous step> 
+	6. Private UDP Port(s): <leave blank>
+	7. Private TCP Port(s): <this should auto-populate with the value of 22> *NOTE: This _must_ remain 22. If you change this from 22, your SSH tunnel will not function. This is due to [Apple port reservations](https://support.apple.com/en-us/HT202944), which you can note only has a single port that is reserved for SSH.*
+	8. Click Continue
+3. Click update. You'll temporarily lose access to the internet as the router is reconfigured. Once internet access is restored, you should now be able to SSH into the machine remotely!
+
+To access the mining rig from your local machine, run `ssh -p <PORT NUMBER, e.g. 21000> <username>@<router public IP address>`.
+If you are unsure of the router's public IP address, you should run `curl ipinfo.io/ip; echo` from a CLI on a computer within the network.
