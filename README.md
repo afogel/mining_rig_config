@@ -6,6 +6,9 @@
 - [Establishing SSH tunneling](#establishing-ssh-tunneling)
 	- [Static IP](#static-ip)
 	- [Setting up port forwarding on the router](#setting-up-port-forwarding-on-the-router)
+- [Configuring SSH to reduce friction when working remotely](#configuring-ssh-to-reduce-friction-when-working-remotely)
+	- [Reduce the command length necessary to SSH](#reduce-the-command-length-necessary-to-SSH)
+	- [Avoid typing a password after the initial handshake](#avoid-typing-a-password-after-the-initial-handshake)
 
 ### Purpose
 
@@ -100,3 +103,31 @@ To access the mining rig from your local machine, run `ssh -p <PORT NUMBER, e.g.
 If you are unsure of the router's public IP address, you should run `curl ipinfo.io/ip; echo` from a CLI on a computer within the network.
 
 [[Table of contents](#table-of-contents)] | [[Top of Section](#establishing-ssh-tunneling)]
+
+## Configuring SSH to reduce friction when working remotely
+
+### Reduce the command length necessary to SSH
+Typing out a long command like `ssh -p <PORT NUMBER> <username>@<router public IP address>` every time you want to reach your mining rig is a total drag. We can reduce friction by configuring your machine to understand that a shorter command, like `ssh mining_rig`, means the exact same thing.
+
+We can accomplish this by following these steps:
+1. Open your `~/.ssh/config` file in your favorite editor.
+2. Adding (and modifying as appropriate) the following code below the existing text:
+```
+Host <NAME OF ALIAS, e.g. mining_rig>
+	Hostname <PUBLIC IP ADDRESS OF THE ROUTER>
+	User <USERNAME>
+	Port <PORT>
+```
+3. Save and exit.
+
+You should now be able to type `ssh mining_rig` (or whatever you called the alias) in order to log on.
+
+### Avoid typing a password after the initial handshake
+
+If we want to avoid typing a password during the initial ssh login to our mining rig, we need to add our public key into the list of authorized keys allowed to access the mining rig.
+
+Check first to see whether you have a [public key/private key pair](https://en.wikipedia.org/wiki/Public-key_cryptography) by inspecting the contents of the `~/.ssh/` folder (`ls ~/.ssh/`). If there are two files in the folder called `id_rsa` and `id_rsa.pub`, then you're ready to proceed to the next step. Otherwise, run `ssh-keygen` and follow the prompts.
+
+Finally, run `ssh-copy-id mining_rig` (or whatever you have aliased your rig to be called), enter in the rig's password, and you're done!
+
+[[Table of contents](#table-of-contents)] | [[Configuring SSH to reduce friction when working remotely](#configuring-ssh-to-reduce-friction-when-working-remotely)]
