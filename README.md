@@ -36,7 +36,7 @@ NVIDIA 1070
 ### Software Inventory
 We are configuring a rig running Ubuntu 16.04 LTS. The steps herein should be supported through April 2021 for a 64-bit architecture.
 
-[Table of contents](#table-of-contents) | [Top of Section](#beginning-with-the-basics)
+[Table of contents](#table-of-contents) | [Beginning with the basics](#beginning-with-the-basics)
 
 ## Establishing SSH tunneling
 In order to connect to the mining rig using a remote machine, we need to:
@@ -69,7 +69,7 @@ auto lo
 iface lo inet loopback
 ``` 
 
-[[Table of contents](#table-of-contents)] | [[Top of Section](#establishing-ssh-tunneling)]
+[[Table of contents](#table-of-contents)] | [[Establishing SSH tunneling](#establishing-ssh-tunneling)]
 
 ### Setting up port forwarding on the router
 
@@ -129,5 +129,7 @@ If we want to avoid typing a password during the initial ssh login to our mining
 Check first to see whether you have a [public key/private key pair](https://en.wikipedia.org/wiki/Public-key_cryptography) by inspecting the contents of the `~/.ssh/` folder (`ls ~/.ssh/`). If there are two files in the folder called `id_rsa` and `id_rsa.pub`, then you're ready to proceed to the next step. Otherwise, run `ssh-keygen` and follow the prompts.
 
 Finally, run `ssh-copy-id mining_rig` (or whatever you have aliased your rig to be called), enter in the rig's password, and you're done!
+
+You should now be able to run `ssh mining_rig` and seemlessly log into your mining rig.
 
 [[Table of contents](#table-of-contents)] | [[Configuring SSH to reduce friction when working remotely](#configuring-ssh-to-reduce-friction-when-working-remotely)]
