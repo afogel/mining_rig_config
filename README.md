@@ -133,3 +133,11 @@ You should now be able to run `ssh mining_rig` and seemlessly log into your mini
 [[Table of contents](#table-of-contents)] | [[Configuring SSH to reduce friction when working remotely](#configuring-ssh-to-reduce-friction-when-working-remotely)]
 
 
+## CUDA Installation
+
+CUDA® is a parallel computing platform and programming model invented by NVIDIA. It enables dramatic increases in computing performance by harnessing the power of the graphics processing unit (GPU). 
+
+We opted to download and use an older/more stable version of CUDA (8.0 GA2 - Released Feb 2017) in order to minimize the potential to run into unprecendented bugs and spent more time than necessary debugging. We downloaded the archived release from [the CUDA toolkit archive](https://developer.nvidia.com/cuda-toolkit-archive).
+
+NVIDIA releases an extensive walkthrough in order to set up CUDA. Rather than rehashing the detailed steps, we have included a copy of the pdf of the instructions in the repo. We will mention any deviations from the standard guide in here as is necessary.
+
