@@ -27,11 +27,9 @@ The steps we will follow to set this machine up is:
 
 ## Beginning with the basics
 ### Hardware inventory
-Apple Airport Extreme
-
-NVIDIA 1060
-
-NVIDIA 1070
+- Apple Airport Extreme
+- NVIDIA 1060
+- NVIDIA 1070
 
 ### Software Inventory
 We are configuring a rig running Ubuntu 16.04 LTS. The steps herein should be supported through April 2021 for a 64-bit architecture.
@@ -133,3 +131,5 @@ Finally, run `ssh-copy-id mining_rig` (or whatever you have aliased your rig to 
 You should now be able to run `ssh mining_rig` and seemlessly log into your mining rig.
 
 [[Table of contents](#table-of-contents)] | [[Configuring SSH to reduce friction when working remotely](#configuring-ssh-to-reduce-friction-when-working-remotely)]
+
+
