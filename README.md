@@ -159,12 +159,12 @@ Initially, we tried to make this work by `curl`ing the endpoint that we see once
 
 **TODO**: explain above in English.
 
-[[Table of contents](#table-of-contents)] | [[Necessary steps to installing CUDA](#Necessary-steps-to-installing-CUDA)]
+[[Table of contents](#table-of-contents)] | [[Steps to installing CUDA](#steps-to-installing-CUDA)]
 
 ### Disable the Nouveau drivers
-Nouveau is an open source driver for NVIDIA cards that appears to ship with Ubuntu. It follows that we need to disable it in order to install our own CUDA drivers. Additionally, it seems unlikely that we will need enable it once the CUDA drivers are enabled.
+Nouveau is an open source driver for NVIDIA cards that appears to ship with Ubuntu. It follows that we need to disable it in order to install our own drivers. Additionally, it seems unlikely that we will need enable it once the CUDA drivers are enabled.
 
-[[Table of contents](#table-of-contents)] | [[Necessary steps to installing CUDA](#Necessary-steps-to-installing-CUDA)]
+[[Table of contents](#table-of-contents)] | [[Steps to installing CUDA](#steps-to-installing-CUDA)]
 
 ### Reboot into text mode
 We followed instructions from [this askubuntu post](https://askubuntu.com/questions/870221/booting-into-text-mode-in-16-04#870226) in order to boot into text mode.
