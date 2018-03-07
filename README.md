@@ -151,6 +151,7 @@ NVIDIA releases an extensive walkthrough in order to set up CUDA. Rather than fu
 - [X] Disable Nouveau drivers [1](#disable-the-nouveau-drivers)
 - [X] Reboot into text mode
 - [X] Run base installer file
+- [X] Create an xconfig file (`sudo nvidia-xconfig`)
 - [X] Follow instructions after install (add `/usr/local/cuda-8.0/bin` to `$PATH` and `/usr/local/cuda-8.0/lib64` to `$LD_LIBRARY_PATH`)
 -
 
