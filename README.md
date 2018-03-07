@@ -137,7 +137,59 @@ You should now be able to run `ssh mining_rig` and seemlessly log into your mini
 
 CUDA® is a parallel computing platform and programming model invented by NVIDIA. It enables dramatic increases in computing performance by harnessing the power of the graphics processing unit (GPU). 
 
-We opted to download and use an older/more stable version of CUDA (8.0 GA2 - Released Feb 2017) in order to minimize the potential to run into unprecendented bugs and spent more time than necessary debugging. We downloaded the archived release from [the CUDA toolkit archive](https://developer.nvidia.com/cuda-toolkit-archive).
+We opted to download and use an older/more stable version of CUDA (8.0 GA2 - released Feb 2017) in order to minimize the potential to run into unprecendented bugs and spent more time than necessary debugging. We downloaded the archived release from [the CUDA toolkit archive](https://developer.nvidia.com/cuda-toolkit-archive).
 
-NVIDIA releases an extensive walkthrough in order to set up CUDA. Rather than rehashing the detailed steps, we have included a copy of the pdf of the instructions in the repo. We will mention any deviations from the standard guide in here as is necessary.
+NVIDIA releases an extensive walkthrough in order to set up CUDA. Rather than fully rehashing the detailed steps, we have included a PDF copy of the instructions in the repo. Unfortunately, the sequencing of the instructions contained in the PDF was not always clear. For clarity and  replicability, we have included the sequence of the steps we followed below. A careful read of the PDF instructions would yield the same result.
 
+## Steps to installing CUDA
+- [X] Verify You Have a CUDA-Capable GPU
+- [X] Verify You Have a Supported Version of Linux
+- [X] Verify the System Has gcc Installed
+- [X] Verify the System has the Correct Kernel Headers and Development Packages Installed
+- [X] [Download base installer](https://developer.nvidia.com/cuda-80-ga2-download-archive) for CUDA toolkit [[1](#download-the-base-installer-file)]
+- [X] [Verify checksum on base installer file](http://developer.download.nvidia.com/compute/cuda/8.0/secure/Prod2/docs/sidebar/md5sum.txt?06dfgqL57dw7YCSfYZdf6EJBl-z5Xjqh67N6QysuJqv8ubYsVM0eRabE5aMvDttlYjo5XpbLtDxS1IMfCiFAmY3hdG8eeBRc3WeP7e71VlaO4DKq-OW-fxAH31j0LLNfxiBaLAgPzXhDZ592HIK-4FAFQzs) and make sure it matches local value of `md5sum <file>`
+- [X] Disable Nouveau drivers [1](#disable-the-nouveau-drivers)
+- [X] Reboot into text mode
+- [X] Run base installer file
+- [X] Follow instructions after install (add `/usr/local/cuda-8.0/bin` to `$PATH` and `/usr/local/cuda-8.0/lib64` to `$LD_LIBRARY_PATH`)
+-
+
+### Download the base installer file
+Initially, we tried to make this work by `curl`ing the endpoint that we see once we selected the OS/hardware options for the driver, but it didn't work. We then `scp`ed the file over to the rig. The next step to verify the checksum was an important sanity check before we proceeded as we didn't have a straightforward download.
+
+**TODO**: explain above in English.
+
+[[Table of contents](#table-of-contents)] | [[Necessary steps to installing CUDA](#Necessary-steps-to-installing-CUDA)]
+
+### Disable the Nouveau drivers
+Nouveau is an open source driver for NVIDIA cards that appears to ship with Ubuntu. It follows that we need to disable it in order to install our own CUDA drivers. Additionally, it seems unlikely that we will need enable it once the CUDA drivers are enabled.
+
+[[Table of contents](#table-of-contents)] | [[Necessary steps to installing CUDA](#Necessary-steps-to-installing-CUDA)]
+
+### Reboot into text mode
+We followed instructions from [this askubuntu post](https://askubuntu.com/questions/870221/booting-into-text-mode-in-16-04#870226) in order to boot into text mode.
+```bash
+# set text mode
+sudo systemctl set-default multi-user.target
+# reboot
+sudo reboot
+```
+
+Once the installation is complete, to set back to GUI, we will run:
+```bash
+# set default booting into X (GUI)
+sudo systemctl set-default graphical.target
+sudo reboot
+```
+
+### Potential errors
+**Problem/Error Message:**
+The driver installation is unable to locate the kernel source. Please make sure that the kernel source packages are installed and set up correctly.
+
+**Solution:**
+Adapted from [this tutorial answer](https://spturtle.blogspot.com/2015/07/cuda70-and-theano-setup-in-ubuntu-linux.html):
+`sudo apt-get install dkms fakeroot build-essential linux-headers-generic`
+
+If I'm being honest, I'm not entirely sure why installing these packages worked. Our machine already had fakeroot and build-essential installed, but did not have [dkms](https://help.ubuntu.com/community/Kernel/DkmsDriverPackage) or [linux-headers-generic](https://superuser.com/questions/697024/what-does-apt-get-install-linux-headers-generic-do). Further investigation will be merited and this doc will hopefully be updated.
+
+The going hypothesis is that DKMS was the necessary dependency due to [this askUbuntu post](https://askubuntu.com/questions/492217/nvidia-driver-reset-after-each-kernel-update/496146#496146).
