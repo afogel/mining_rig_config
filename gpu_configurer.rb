@@ -61,13 +61,14 @@ class GPUConfigurer
   # ***********************************
 
   def ssh_prefix
-    'sudo DISPLAY=:0 XAUTHORITY=/var/run/lightdm/root/:0 nvidia-settings'
+    'sudo DISPLAY=:0 XAUTHORITY=/var/run/lightdm/root/:0'
   end
   
   def run_fan!
     message_helper("Starting fans at #{fan_power}%")
-    `#{ssh_prefix} nvidia-settings -a [gpu:#{gpu_position}]/GPUFanControlState=1`
-    `#{ssh_prefix} nvidia-settings -a [gpu:#{gpu_position}]/GPUTargetFanSpeed=#{fan_power}`
+    output = `#{ssh_prefix} nvidia-settings -a [gpu:#{gpu_position}]/GPUFanControlState=1 -a [fan:#{gpu_position}]/GPUTargetFanSpeed=#{fan_power}`
+    puts output
+    puts "FAN SPEED: #{fan_power}"
   end
 
   def set_persistence_mode!
@@ -77,14 +78,14 @@ class GPUConfigurer
 
   def set_graphics_clock_offset!
     message_helper("Setting GPU Graphics Clock Offset to #{fan_power}%")
-    `#{ssh_prefix} nvidia-settings -a \ 
-      [gpu:#{gpu_position}]/GPUGraphicsClockOffset[3]=#{graphics_clock_offset}`
+    output = `#{ssh_prefix} nvidia-settings -a [gpu:#{gpu_position}]/GPUGraphicsClockOffset[3]=#{graphics_clock_offset}`
+    puts output
   end
 
   def set_memory_offset!
     message_helper("Setting GPU Memory Transfer Rate Offset to #{memory_offset}")
-    `#{ssh_prefix} nvidia-settings -a  \
-      [gpu:#{gpu_position}]/GPUMemoryTransferRateOffset[3]=#{memory_offset}`
+    output = `#{ssh_prefix} nvidia-settings -a [gpu:#{gpu_position}]/GPUMemoryTransferRateOffset[3]=#{memory_offset}`
+    puts output
   end
   
   # Force Powermizer to a certain level at all times
@@ -93,11 +94,12 @@ class GPUConfigurer
   # level 0x3=lowest
   def set_maximum_performance_mode!
     message_helper('Setting GPU to Prefer Maximum Performance mode')
-    `#{ssh_prefix} nvidia-settings -a [gpu:#{gpu_position}]/GpuPowerMizerMode=1`
+    output = `#{ssh_prefix} nvidia-settings -a [gpu:#{gpu_position}]/GpuPowerMizerMode=1`
+    puts output
   end
 
   # TODO: expose API for control over power threshold
-  def lower_power_limits!(percent_threshold: .8)
+  def lower_power_limits!(percent_threshold: 0.8)
     # percent_threshold value should be between 0 and 1
     power_limit = current_power_limit
     new_power_limit = (power_limit * percent_threshold).to_i
