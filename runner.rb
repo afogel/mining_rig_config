@@ -44,13 +44,13 @@ GPUConfigurer.new(
 ).configure!
 
 # GeForce GTX 1070 Mini - Not functional for overclocking
-# GPUConfigurer.new(
-#  gpu_position: 4,
-#  graphics_clock_offset: 0,
-#  memory_offset: 0,
-#  fan_power: 55,
-#  stock_setting: true
-#).configure!
+ GPUConfigurer.new(
+  gpu_position: 4,
+  graphics_clock_offset: 0,
+  memory_offset: 0,
+  fan_power: 65,
+  stock_setting: true
+).configure!
 
 
 # Run miner
