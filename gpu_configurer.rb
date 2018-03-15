@@ -30,6 +30,7 @@ class GPUConfigurer
 
   def set_universal_configurations!
     message_helper("Configuring GPU #{gpu_position}")
+    set_initial_environment_variables!
     set_persistence_mode!
     run_fan!
   end
@@ -45,6 +46,14 @@ class GPUConfigurer
     puts message
     puts "*********************************************************************"
     puts 
+  end
+
+  def set_initial_environment_variables!
+    `export GPU_FORCE_64BIT_PTR=0`
+    `export GPU_MAX_HEAP_SIZE=100`
+    `export GPU_USE_SYNC_OBJECTS=1`
+    `export GPU_MAX_ALLOC_PERCENT=100`
+    `export GPU_SINGLE_ALLOC_PERCENT=100`
   end
 
   # ***********************************
