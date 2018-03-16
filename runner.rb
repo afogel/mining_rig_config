@@ -2,6 +2,7 @@
 
 require_relative './gpu_configurer'
 require_relative './miner_wrapper'
+require_relative './claymore_wrapper'
 
 # Configure GPUs
 
@@ -54,4 +55,4 @@ GPUConfigurer.new(
 
 
 # Run miner
-MinerWrapper.new.run_miner!
+ClaymoreWrapper.new.run!(monitor: true, slowdown_threshold: 65, shutdown_threshold: 70)
