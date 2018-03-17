@@ -18,7 +18,13 @@ class ClaymoreWrapper
     command = command_constructor(monitor, slowdown_threshold, shutdown_threshold)
     puts "executing #{command}"
     while true
-      Open3.popen3("#{command}") { |stdout| puts stdout.read } unless miner_running?
+      unless miner_running?
+        Open3.popen3("#{command}") do |stdout, stderr, status, thread|
+          while line=stderr.gets do 
+            puts(line) 
+          end
+        end 
+      end
     end
   end
 
