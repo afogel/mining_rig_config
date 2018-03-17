@@ -1,3 +1,5 @@
+require 'open3'
+
 # for more info, check out: /usr/local/claymoreEth/Readme\!\!\!.txt
 class ClaymoreWrapper
   attr_reader :eth_address, :worker_name, :mining_pool, :port
@@ -16,7 +18,7 @@ class ClaymoreWrapper
     command = command_constructor(monitor, slowdown_threshold, shutdown_threshold)
     puts "executing #{command}"
     while true
-      `#{command}` unless miner_running?
+      Open3.popen3("#{command}") { |stdout| puts stdout.read } unless miner_running?
     end
   end
 
