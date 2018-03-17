@@ -35,7 +35,7 @@ class ClaymoreWrapper
   private
 
   def log
-    "-log ~/Desktop/mining_logs/claymore_log.txt"
+    "-logfile ~/Desktop/mining_logs/claymore_log.txt"
   end
 
   # -ewal YOUR_WALLET/YOUR_WORKER/YOUR_EMAIL
