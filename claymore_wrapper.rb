@@ -13,9 +13,20 @@ class ClaymoreWrapper
   end
 
   def run!(monitor: true, slowdown_threshold: nil, shutdown_threshold: nil)
+    command = command_constructor(monitor, slowdown_threshold, shutdown_threshold)
+    puts "executing #{command}"
+    while true
+      `#{command}` unless miner_running?
+    end
+  end
+
+  private
+
+  def command_constructor(monitor, slowdown_threshold, shutdown_threshold)
     command_list = []
-    command_list.push('/usr/local/claymoreEth/ethdcrminer64')
+    claymore_executable = '/usr/local/claymoreEth/ethdcrminer64'
     command_list.push(
+      claymore_executable,
       eth_wallet,
       eth_pool,
       eth_only_mode,
@@ -27,12 +38,13 @@ class ClaymoreWrapper
     command_list.push(monitor_flag) if monitor
     command_list.push(miner_slowdown_temp(slowdown_threshold)) unless slowdown_threshold.nil?
     command_list.push(miner_shutdown_temp(shutdown_threshold)) unless shutdown_threshold.nil?
-    command = command_list.join(' ')
-    puts "executing #{command}"
-    `#{command}`
+    command_list.join(' ')
   end
 
-  private
+  def miner_running?
+    ethminer_processes = (`ps aux | grep [c]laymore`).split(/\n/)
+    ethminer_processes.length >= 1
+  end
 
   def log
     "-logfile ~/Desktop/mining_logs/claymore_log.txt"
