@@ -15,12 +15,15 @@ class ClaymoreWrapper
   def run!(monitor: true, slowdown_threshold: nil, shutdown_threshold: nil)
     command_list = []
     command_list.push('/usr/local/claymoreEth/ethdcrminer64')
-    command_list.push(eth_wallet)
-    command_list.push(eth_pool)
-    command_list.push(eth_only_mode)
-    command_list.push(pool_password)
-    command_list.push(failover_threshold)
-    command_list.push(debug_mode)
+    command_list.push(
+      eth_wallet,
+      eth_pool,
+      eth_only_mode,
+      pool_password,
+      failover_threshold,
+      debug_mode,
+      log
+    )
     command_list.push(monitor_flag) if monitor
     command_list.push(miner_slowdown_temp(slowdown_threshold)) unless slowdown_threshold.nil?
     command_list.push(miner_shutdown_temp(shutdown_threshold)) unless shutdown_threshold.nil?
@@ -29,7 +32,11 @@ class ClaymoreWrapper
     `#{command}`
   end
 
-  private 
+  private
+
+  def log
+    "-log ~/Desktop/mining_logs/claymore_log.txt"
+  end
 
   # -ewal YOUR_WALLET/YOUR_WORKER/YOUR_EMAIL
   def eth_wallet
